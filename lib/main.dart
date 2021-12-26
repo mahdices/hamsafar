@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hamsafar/home_page.dart';
 import 'package:hamsafar/login_page.dart';
 
 void main() {
@@ -18,6 +19,9 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Demo',
       theme: ThemeData(fontFamily: 'Dana'),
       home: const LoginPage(),
+      routes: {
+        "/home": (context)=>const HomePage(),
+      },
     );
   }
 }

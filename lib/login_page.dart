@@ -50,7 +50,9 @@ class LoginPage extends StatelessWidget {
                         const RoundedRectangleBorder(
                             borderRadius:
                                 BorderRadius.all(Radius.circular(12))))),
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.of(context).pushNamed("/home");
+                },
                 child: Text("ورود"),
               ),
             ),
