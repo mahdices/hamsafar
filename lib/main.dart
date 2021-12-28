@@ -20,7 +20,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(fontFamily: 'Dana'),
       home: const LoginPage(),
       routes: {
-        "/home": (context)=>const HomePage(),
+        "/home": (context)=>HomePage(),
       },
     );
   }

@@ -2,16 +2,18 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:hamsafar/appconfig.dart';
+import 'package:hamsafar/components/item_drawer.dart';
 import 'package:latlong2/latlong.dart';
-import 'package:location';
 
 class HomePage extends StatelessWidget {
-  var location = Location
-  const HomePage({Key? key}) : super(key: key);
+  final GlobalKey<ScaffoldState> _key = GlobalKey();
+
+  HomePage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: _key,
       body: Stack(
         children: [
           FlutterMap(
@@ -58,11 +60,16 @@ class HomePage extends StatelessWidget {
             margin: const EdgeInsets.all(24),
             child: Row(
               children: [
-                Container(
-                    margin: const EdgeInsets.only(right: 16),
-                    alignment: Alignment.centerRight,
-                    width: 100,
-                    child: Icon(Icons.menu)),
+                GestureDetector(
+                  onTap: () {
+                    _key.currentState!.openDrawer();
+                  },
+                  child: Container(
+                      margin: const EdgeInsets.only(right: 16),
+                      alignment: Alignment.centerRight,
+                      width: 100,
+                      child: Icon(Icons.menu)),
+                ),
                 Spacer(),
                 Text(
                   "در دسترس",
@@ -80,8 +87,127 @@ class HomePage extends StatelessWidget {
                     ))
               ],
             ),
-          )
+          ),
         ],
+      ),
+      drawer: Drawer(
+        child: Container(
+          color: Colors.white,
+          padding: const EdgeInsets.all(20),
+          child: Column(
+            children: [
+              SizedBox(height: 16),
+              Container(
+                width: 100,
+                height: 110,
+                child: Stack(
+                  children: [
+                    Container(
+                      width: 100,
+                      height: 100,
+                      child: CircleAvatar(
+                        backgroundImage: AssetImage("assets/temp/avatar.jpeg"),
+                      ),
+                    ),
+                    Positioned(
+                        bottom: 0,
+                        right: 20,
+                        left: 20,
+                        child: Container(
+                            decoration: BoxDecoration(
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(40)),
+                                color: Color(AppConfig.primaryColor)),
+                            child: Text(
+                              "4.5",
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.bold),
+                            )))
+                  ],
+                ),
+              ),
+              SizedBox(
+                height: 16,
+              ),
+              Row(
+                children: [
+                  Expanded(
+                      child: Text(
+                    "مهدی میرزاده",
+                    textAlign: TextAlign.right,
+                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                  )),
+                  Container(
+                    height: 30,
+                    width: 1,
+                    color: Colors.black,
+                  ),
+                  Expanded(
+                      child: Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      Text(
+                        "2201107",
+                        textAlign: TextAlign.left,
+                        style: TextStyle(
+                            fontSize: 20, fontWeight: FontWeight.bold),
+                      ),
+                      SizedBox(
+                        width: 8,
+                      ),
+                      Icon(Icons.qr_code_rounded)
+                    ],
+                  )),
+                ],
+              ),
+              SizedBox(
+                height: 32,
+              ),
+              Expanded(
+                  child: ListView(
+                children: [
+                  ItemDrawer(title: "پروفایل", icon: Icons.person_rounded),
+                  ItemDrawer(
+                    title: "کیف پول",
+                    icon: Icons.account_balance_wallet_rounded,
+                    widget: Container(
+                      padding: const EdgeInsets.only(top: 3,bottom: 3,left: 8,right: 8),
+                      decoration: BoxDecoration(
+                          color: Color(AppConfig.greenColor),
+                          borderRadius: const BorderRadius.all(Radius.circular(40))),
+                      child: RichText(
+                        text: TextSpan(
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontFamily: "Dana",
+                                fontWeight: FontWeight.bold,
+                                fontSize: 16),
+                            children: [
+                              TextSpan(text: "۵۰۰.۰۰۰"),
+                              TextSpan(
+                                  text: " تومان",
+                                  style: TextStyle(fontSize: 12)),
+                            ]),
+                      ),
+                    ),
+                  ),
+                  ItemDrawer(
+                      title: "سابقه سفر ها", icon: Icons.list_alt_rounded),
+                  ItemDrawer(
+                      title: "پشتیبانی", icon: Icons.support_agent_rounded),
+                  ItemDrawer(title: "تنظیمات", icon: Icons.settings_rounded),
+                  ItemDrawer(title: "پیام های من", icon: Icons.mail_rounded),
+                  ItemDrawer(
+                      title: "ویدئو های آموزشی",
+                      icon: Icons.smart_display_rounded),
+                ],
+              ))
+            ],
+          ),
+        ),
       ),
     );
   }
