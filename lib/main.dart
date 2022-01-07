@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:hamsafar/home_page.dart';
 import 'package:hamsafar/login_page.dart';
+import 'package:hamsafar/pages/edit_financial_page.dart';
+import 'package:hamsafar/pages/profile_page.dart';
+import 'package:hamsafar/pages/wallet_page.dart';
 
 void main() {
   runApp(const MyApp());
@@ -13,6 +16,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       builder: (context, widget) {
         return Directionality(textDirection: TextDirection.rtl, child: widget!);
       },
@@ -20,7 +24,10 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(fontFamily: 'Dana'),
       home: const LoginPage(),
       routes: {
-        "/home": (context)=>HomePage(),
+        "/home": (context) => HomePage(),
+        "/profile": (context) => const ProfilePage(),
+        "/edit-financial": (context) =>  EditFinancialPage(),
+        "/wallet": (context) =>  WalletPage(),
       },
     );
   }

@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:hamsafar/appconfig.dart';
+import 'package:hamsafar/components/avatar_rate_widget.dart';
 import 'package:hamsafar/components/item_drawer.dart';
 import 'package:latlong2/latlong.dart';
 
@@ -97,38 +98,7 @@ class HomePage extends StatelessWidget {
           child: Column(
             children: [
               SizedBox(height: 16),
-              Container(
-                width: 100,
-                height: 110,
-                child: Stack(
-                  children: [
-                    Container(
-                      width: 100,
-                      height: 100,
-                      child: CircleAvatar(
-                        backgroundImage: AssetImage("assets/temp/avatar.jpeg"),
-                      ),
-                    ),
-                    Positioned(
-                        bottom: 0,
-                        right: 20,
-                        left: 20,
-                        child: Container(
-                            decoration: BoxDecoration(
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(40)),
-                                color: Color(AppConfig.primaryColor)),
-                            child: Text(
-                              "4.5",
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.bold),
-                            )))
-                  ],
-                ),
-              ),
+              AvatarRateWidget(),
               SizedBox(
                 height: 16,
               ),
@@ -169,15 +139,28 @@ class HomePage extends StatelessWidget {
               Expanded(
                   child: ListView(
                 children: [
-                  ItemDrawer(title: "پروفایل", icon: Icons.person_rounded),
+                  ItemDrawer(
+                    title: "پروفایل",
+                    icon: Icons.person_rounded,
+                    callback: () {
+                      Navigator.of(context).pop();
+                      Navigator.of(context).pushNamed("/profile");
+                    },
+                  ),
                   ItemDrawer(
                     title: "کیف پول",
                     icon: Icons.account_balance_wallet_rounded,
+                    callback: (){
+                      Navigator.of(context).pop();
+                      Navigator.of(context).pushNamed("/wallet");
+                    },
                     widget: Container(
-                      padding: const EdgeInsets.only(top: 3,bottom: 3,left: 8,right: 8),
+                      padding: const EdgeInsets.only(
+                          top: 3, bottom: 3, left: 8, right: 8),
                       decoration: BoxDecoration(
                           color: Color(AppConfig.greenColor),
-                          borderRadius: const BorderRadius.all(Radius.circular(40))),
+                          borderRadius:
+                              const BorderRadius.all(Radius.circular(40))),
                       child: RichText(
                         text: TextSpan(
                             style: TextStyle(
